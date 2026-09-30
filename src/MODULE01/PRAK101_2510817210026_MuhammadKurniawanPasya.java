@@ -15,12 +15,17 @@ public class PRAK101_2510817210026_MuhammadKurniawanPasya {
         System.out.print("Masukkan tanggal lahir: ");
         int tanggal_lahir = input.nextInt();
 
-        System.out.print("Masukkan bulan lahir: ");
-        int bulan_lahir = input.nextInt();
+        int bulan_lahir;
 
-        if (bulan_lahir < 1 || bulan_lahir > 12) {
+        while (true) {
+            System.out.print("Masukkan bulan lahir: ");
+            bulan_lahir = input.nextInt();
+
+            if (bulan_lahir >= 1 && bulan_lahir <= 12) {
+                break;
+            }
+
             System.out.println("Bulan tidak valid");
-            return;
         }
 
         System.out.print("Masukkan tahun lahir: ");
@@ -40,9 +45,14 @@ public class PRAK101_2510817210026_MuhammadKurniawanPasya {
             max_hari = 31;
         }
 
-        if (tanggal_lahir < 1 || tanggal_lahir > max_hari) {
-            System.out.println("Tanggal tidak valid");
-            return;
+        while (true) {
+            if (tanggal_lahir >= 1 && tanggal_lahir <= max_hari) {
+                break;
+            }
+
+            System.out.println("Tanggal tidak valid!");
+            System.out.print("Masukkan tanggal lahir: ");
+            tanggal_lahir = input.nextInt();
         }
 
         System.out.print("Masukkan tinggi badan: ");
