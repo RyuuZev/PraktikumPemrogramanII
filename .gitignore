@@ -1,0 +1,13 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Hasil compile Java
+out/
+
+# File hasil compile
+*.class
+
+# File sistem
+.DS_Store
+Thumbs.db
