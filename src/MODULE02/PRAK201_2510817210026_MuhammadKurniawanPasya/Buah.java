@@ -21,8 +21,28 @@ public class Buah {
 
     private double hitungDiskon() {
         double totalDiskon = 0;
-        double hargaPerKg = hargaBuah / beratBuah;
 
-        int jumlahPerulangan = (int)
+        int jumlahPerulangan = (int) (jumlahBeli / 4);
+
+        for (int i = 0; i < jumlahPerulangan; i++) {
+            totalDiskon += (4 * hargaBuah) * 0.02;
+
+        }
+        return totalDiskon;
+    }
+
+    public void tampilkanInfo() {
+        double hargaSebelumDiskon = hitungHargaSebelumDiskon();
+        double totalDiskon = hitungDiskon();
+        double hargaSetelahDiskon = hargaSebelumDiskon - totalDiskon;
+
+        System.out.println("Nama Buah: " + namaBuah);
+        System.out.println("Berat: " + beratBuah);
+        System.out.println("Harga: " + hargaBuah);
+        System.out.println("Jumlah Beli: " + jumlahBeli + "kg");
+        System.out.printf("Harga Sebelum Diskon: Rp%.2f%n", hargaSebelumDiskon);
+        System.out.printf("Total Diskon: Rp%.2f%n", totalDiskon);
+        System.out.printf("Harga Setelah Diskon: Rp%.2f%n", hargaSetelahDiskon);
+        System.out.println();
     }
 }
