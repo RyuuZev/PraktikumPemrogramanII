@@ -1,0 +1,8 @@
+# IntelliJ
+.idea/**/workspace.xml
+
+# Build output
+out/
+
+# IntelliJ module files
+*.iml
