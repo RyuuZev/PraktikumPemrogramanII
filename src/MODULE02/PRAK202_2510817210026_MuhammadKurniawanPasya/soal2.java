@@ -13,3 +13,4 @@ public class soal2 {
         System.out.println("Pajak Kopi: Rp. " + kopi1.getPajak());
     }
 }
+

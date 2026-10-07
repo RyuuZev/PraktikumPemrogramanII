@@ -12,3 +12,4 @@ public class soal1 {
         alpukat.tampilkanInfo();
     }
 }
+
