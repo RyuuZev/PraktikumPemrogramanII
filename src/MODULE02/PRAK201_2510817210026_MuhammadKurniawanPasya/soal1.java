@@ -1,6 +1,6 @@
 package MODULE02.PRAK201_2510817210026_MuhammadKurniawanPasya;
 
-public class Main {
+public class soal1 {
     public static void main(String[] args) {
 
         Buah apel = new Buah("Apel", 0.4, 7000, 40);
