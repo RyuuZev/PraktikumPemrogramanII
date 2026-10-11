@@ -1,4 +1,4 @@
-package MODULE03.PRAK301_2510817210026_MuhammadKurniawanPasya;
+package MODULE03.soal1;
 
 import java.util.Scanner;
 import java.util.LinkedList;
