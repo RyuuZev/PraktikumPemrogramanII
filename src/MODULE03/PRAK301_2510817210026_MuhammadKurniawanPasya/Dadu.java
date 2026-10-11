@@ -5,10 +5,17 @@ import java.util.Random;
 public class Dadu {
     Random r = new Random();
 
-    private int dadu;
+    private int nilai_dadu;
 
-    public Dadu(int dadu) {
-        this.dadu = dadu;
+    public int getNilaiDadu() {
+        return nilai_dadu;
     }
 
+    public void acakNilai() {
+        nilai_dadu = r.nextInt(6) + 1;
+    }
+
+    public Dadu() {
+        acakNilai();
+    }
 }
