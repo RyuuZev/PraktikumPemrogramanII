@@ -1,97 +1,132 @@
+
 package MODULE03.soal3;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Soal3 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<Mahasiswa> daftarMahasiswa = new ArrayList<>();
 
-        String namaMahasiswa;
-        String nimMahasiswa;
+        ArrayList<Mahasiswa> daftarMahasiswa = new ArrayList<>();
+        HashMap<String, Mahasiswa> dataNim = new HashMap<>();
 
         int pilihan;
 
         do {
-            boolean nimSudahAda = false;
+            System.out.println("\nMenu:");
+            System.out.println("1. Tambah Mahasiswa");
+            System.out.println("2. Hapus Mahasiswa berdasarkan NIM");
+            System.out.println("3. Cari Mahasiswa berdasarkan NIM");
+            System.out.println("4. Tampilkan Daftar Mahasiswa");
+            System.out.println("5. Update Nama Mahasiswa");
+            System.out.println("0. Keluar");
+            System.out.print("Pilihan: ");
 
-            System.out.print("\nMenu:\n" +
-                    "1. Tambah Mahasiswa\n" +
-                    "2. Hapus Mahasiswa berdasarkan NIM\n" +
-                    "3. Cari Mahasiswa berdasarkan NIM\n" +
-                    "4. Tampilkan Daftar Mahasiswa\n" +
-                    "0. Keluar\n" +
-                    "Pilihan: ");
-            pilihan = input.nextInt(); input.nextLine();
+            try {
+                pilihan = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e) {
+                pilihan = -1;
+            }
 
             switch (pilihan) {
                 case 1:
-                    System.out.print("Masukkan Nama Mahasiswa: "); namaMahasiswa = input.nextLine();
-                    System.out.print("Masukkan NIM Mahasiswa (harus unik): "); nimMahasiswa = input.nextLine();
+                    System.out.print("Masukkan Nama Mahasiswa: ");
+                    String nama = input.nextLine();
 
-                    for (int i = 0; i < daftarMahasiswa.size(); i++) {
-                        Mahasiswa m = daftarMahasiswa.get(i);
-                        if (m.getNim().equals(nimMahasiswa)) {
-                            nimSudahAda = true;
-                            break;
-                        }
-                    }
+                    System.out.print("Masukkan NIM Mahasiswa: ");
+                    String nim = input.nextLine();
 
-                    if (nimSudahAda) {
+                    if (nama.trim().isEmpty() || nim.trim().isEmpty()) {
+                        System.out.println("Nama dan NIM tidak boleh kosong!");
+                    } else if (dataNim.containsKey(nim)) {
                         System.out.println("NIM ini sudah digunakan!");
                     } else {
-                        Mahasiswa m = new Mahasiswa(namaMahasiswa, nimMahasiswa);
+                        Mahasiswa m = new Mahasiswa(nama, nim);
+
                         daftarMahasiswa.add(m);
-                        System.out.printf("Mahasiswa %s ditambahkan.", namaMahasiswa);
+                        dataNim.put(nim, m);
+
+                        System.out.println("Mahasiswa " + nama + " ditambahkan.");
                     }
                     break;
+
                 case 2:
-                    System.out.print("Masukkan NIM Mahasiswa yang akan dihapus: "); nimMahasiswa = input.nextLine();
+                    System.out.print("Masukkan NIM yang akan dihapus: ");
+                    nim = input.nextLine();
 
-                    for (int i = 0; i < daftarMahasiswa.size(); i++) {
-                        Mahasiswa m = daftarMahasiswa.get(i);
-                        if (nimMahasiswa.equals(m.getNim())) {
-                            nimSudahAda = true;
-                            daftarMahasiswa.remove(i);
-                            break;
-                        };
-                    }
+                    Mahasiswa hapus = dataNim.get(nim);
 
-                    if (nimSudahAda) {
-                        System.out.printf("Mahasiswa dengan NIM %s dihapus.", nimMahasiswa);
+                    if (hapus != null) {
+                        daftarMahasiswa.remove(hapus);
+                        dataNim.remove(nim);
+                        System.out.println("Mahasiswa dengan NIM " + nim + " dihapus.");
                     } else {
-                        System.out.printf("Mahasiswa dengan NIM %s tidak ditemukan", nimMahasiswa);
+                        System.out.println("Mahasiswa tidak ditemukan.");
                     }
                     break;
-                case 3:
-                    System.out.print("Masukkan NIM Mahasiswa yang akan dicari: "); nimMahasiswa = input.nextLine();
 
-                    for (int i = 0; i < daftarMahasiswa.size(); i++) {
-                        Mahasiswa m = daftarMahasiswa.get(i);
-                        if (nimMahasiswa.equals(m.getNim())) {
-                            nimSudahAda = true;
-                            System.out.printf("NIM: %s, Nama: %s", nimMahasiswa, m.getNama());
-                            break;
+                case 3:
+                    System.out.print("Masukkan NIM yang akan dicari: ");
+                    nim = input.nextLine();
+
+                    Mahasiswa cari = dataNim.get(nim);
+
+                    if (cari != null) {
+                        System.out.println("NIM: " + cari.getNim()
+                                + ", Nama: " + cari.getNama());
+                    } else {
+                        System.out.println("Mahasiswa tidak ditemukan.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Daftar Mahasiswa:");
+
+                    if (daftarMahasiswa.isEmpty()) {
+                        System.out.println("Belum ada data mahasiswa.");
+                    } else {
+                        for (Mahasiswa m : daftarMahasiswa) {
+                            System.out.println("NIM: " + m.getNim()
+                                    + ", Nama: " + m.getNama());
                         }
                     }
+                    break;
 
-                    if (!nimSudahAda) {
-                        System.out.printf("Mahasiswa dengan NIM %s tidak ditemukan", nimMahasiswa);
+                case 5:
+                    System.out.print("Masukkan NIM yang akan diupdate: ");
+                    nim = input.nextLine();
+
+                    Mahasiswa update = dataNim.get(nim);
+
+                    if (update != null) {
+                        System.out.print("Masukkan Nama Baru: ");
+                        String namaBaru = input.nextLine();
+
+                        if (namaBaru.trim().isEmpty()) {
+                            System.out.println("Nama tidak boleh kosong!");
+                        } else {
+                            update.setNama(namaBaru);
+                            System.out.println("Nama mahasiswa berhasil diupdate.");
+                        }
+                    } else {
+                        System.out.println("Mahasiswa tidak ditemukan.");
                     }
                     break;
-                case 4:
-                    System.out.println("Daftar Mahasiswa: ");
 
-                    for (int i = 0; i < daftarMahasiswa.size(); i++) {
-                        Mahasiswa m = daftarMahasiswa.get(i);
-                        System.out.printf("NIM: %s, Nama: %s\n", m.getNim(), m.getNama());
-                    }
-                    break;
                 case 0:
                     daftarMahasiswa.clear();
+                    dataNim.clear();
                     System.out.println("Terima Kasih!");
+                    break;
+
+                default:
+                    System.out.println("Pilihan tidak tersedia!");
             }
+
         } while (pilihan != 0);
+
+        input.close();
     }
 }
