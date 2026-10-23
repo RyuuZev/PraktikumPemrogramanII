@@ -11,5 +11,7 @@ public class Soal1Main {
 
         HewanPeliharaan hp1 = new HewanPeliharaan(namaHewan, rasHewan);
         hp1.display();
+
+        input.close();
     }
 }
